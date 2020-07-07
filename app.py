@@ -23,8 +23,10 @@ def predict():
     prediction = model.predict(final_features)
 
     output = round(prediction[0], 2)
-    
-    return render_template('index.html', prediction_text='Winner = 1 Not Winner = 0. The Prediction is  {}'.format(output))
+    if output ==1:
+        return render_template('index.html', prediction_text='Winner')
+    else:
+        return render_template('index.html', prediction_text='Not Winner')
 
 if __name__ == "__main__":
     app.run(debug=True)

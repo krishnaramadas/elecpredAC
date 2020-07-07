@@ -92,7 +92,7 @@ dataset['POLITICAL_PARTY']= dataset.apply(lambda row:POLITICAL_PARTY(row),axis=1
 
 #Separating train features and label
 y = dataset["WINNER"]
-X = dataset.drop(labels=["WINNER"], axis=1)
+X = dataset.drop(labels=["WINNER","NAME"], axis=1)
 
 '''LABEL ENCODING'''
 
@@ -101,10 +101,6 @@ from sklearn.preprocessing import LabelEncoder
 lblEncoder_cons = LabelEncoder()
 lblEncoder_cons.fit(X['CONSTITUENCY'])
 X['CONSTITUENCY'] = lblEncoder_cons.transform(X['CONSTITUENCY'])
-
-lblEncoder_name = LabelEncoder()
-lblEncoder_name.fit(X['NAME'])
-X['NAME'] = lblEncoder_name.transform(X['NAME'])
 
 lblEncoder_party = LabelEncoder()
 lblEncoder_party.fit(X['PARTY'])
@@ -131,7 +127,7 @@ X['CATEGORY'] = lblEncoder_category.transform(X['CATEGORY'])
 from sklearn.preprocessing import MinMaxScaler
 # scaling values into 0-1 range
 scaler = MinMaxScaler(feature_range=(0, 1))
-features = ['YEAR','CONSTITUENCY', 'NAME', 'PARTY', 'GENDER', 'AGE', 'CATEGORY','VOTES', 'ELECTORS', 'VOTERS', 'VALID VOTES', 'POLITICAL_PARTY']
+features = ['YEAR','CONSTITUENCY', 'PARTY', 'GENDER', 'AGE', 'CATEGORY','VOTES', 'ELECTORS', 'VOTERS', 'VALID VOTES', 'POLITICAL_PARTY']
 X[features] = scaler.fit_transform(X[features])
 
 '''Building Model'''
